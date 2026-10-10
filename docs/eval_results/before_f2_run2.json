@@ -1,0 +1,68 @@
+{
+  "label": "before_f2_run2",
+  "model": "gemini-3.8-flash",
+  "prompt_version": "v1.0",
+  "passed": 1,
+  "total": 3,
+  "results": [
+    {
+      "id": "G1",
+      "req": "general",
+      "query": "Hi! What kinds of things can you help me with?",
+      "pass": true,
+      "fails": [],
+      "intent": "general_hr",
+      "status": "success",
+      "tools": [],
+      "policy_docs": [],
+      "ticket": null,
+      "reply": "Hi Aarav! I'm HR Buddy, your HR helpdesk assistant. I can help you with:\n\n- Checking your leave balances and understanding leave rules\n- Tracking the status of your reimbursement claims (just share the Claim ID, e.g., RMB-####)\n- Answering questions about company HR policies and guidelines\n\nIf you have a specific question about your entitlements, claims, or policies, feel free to ask! If it's something I don't have details on, I can also help raise a ticket with HR. How can I assist you today?",
+      "cost_usd": 0.0018885,
+      "tokens": [
+        1738,
+        156
+      ]
+    },
+    {
+      "id": "G2",
+      "req": "general",
+      "query": "What's the difference between gross and net salary?",
+      "pass": false,
+      "fails": [
+        "reply missing any of ['deduction']",
+        "reply contains forbidden 'raise a ticket'"
+      ],
+      "intent": "general_hr",
+      "status": "success",
+      "tools": [],
+      "policy_docs": [],
+      "ticket": null,
+      "reply": "The policy I have doesn't cover that. Would you like me to raise a ticket with HR so they can assist you with your salary breakdown?",
+      "cost_usd": 0.0032595,
+      "tokens": [
+        1736,
+        522
+      ]
+    },
+    {
+      "id": "G3",
+      "req": "general",
+      "query": "What is a notice period?",
+      "pass": false,
+      "fails": [
+        "reply contains forbidden 'raise a ticket'"
+      ],
+      "intent": "general_hr",
+      "status": "success",
+      "tools": [],
+      "policy_docs": [],
+      "ticket": null,
+      "reply": "In general terms, a notice period is the amount of time an employee must continue working after submitting their formal resignation, or the time an employer provides an employee before ending their employment.\n\nHowever, I don't have the specific Acme Tech India policy documents covering separation or notice period terms available right now. If you need details on your specific notice period duration, buy-out rules, or procedures, I can raise a ticket with HR for you. Would you like me to do that?",
+      "cost_usd": 0.00183825,
+      "tokens": [
+        1726,
+        145
+      ]
+    }
+  ]
+}

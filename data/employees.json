@@ -1,0 +1,71 @@
+{
+  "_comment": "Mock HR records database (fictional people). Fields marked sensitive are NEVER exposed by any tool.",
+  "employees": {
+    "E1001": {
+      "name": "Aarav Mehta",
+      "department": "Engineering",
+      "grade": "L4",
+      "manager_id": "E1003",
+      "joined_on": "2023-06-12",
+      "home_city": "Pune",
+      "sensitive": {
+        "annual_salary_inr": 2450000,
+        "bank_account_last4": "4417",
+        "personal_phone": "+91-98xxxx1201"
+      },
+      "leave_balance": {
+        "leave_year": "2026-27",
+        "casual": {"entitled": 8, "used": 5, "remaining": 3},
+        "sick": {"entitled": 10, "used": 1, "remaining": 9},
+        "earned": {"entitled": 18, "carried_forward": 4, "used": 6, "remaining": 16, "note": "remaining = entitled + carried_forward - used"}
+      },
+      "reimbursements": [
+        {"claim_id": "RMB-2041", "type": "internet", "amount_inr": 1000, "submitted_on": "2026-09-03", "status": "approved", "payout_date": "2026-10-31"},
+        {"claim_id": "RMB-2077", "type": "travel_meals", "amount_inr": 3250, "submitted_on": "2026-09-28", "status": "pending_manager_approval", "payout_date": null},
+        {"claim_id": "RMB-1988", "type": "certification", "amount_inr": 14000, "submitted_on": "2026-07-19", "status": "rejected", "rejection_reason": "Submitted after the 45-day window", "payout_date": null}
+      ]
+    },
+    "E1002": {
+      "name": "Priya Sharma",
+      "department": "Finance",
+      "grade": "L5",
+      "manager_id": "E1003",
+      "joined_on": "2021-02-01",
+      "home_city": "Mumbai",
+      "sensitive": {
+        "annual_salary_inr": 3120000,
+        "bank_account_last4": "9032",
+        "personal_phone": "+91-97xxxx5520"
+      },
+      "leave_balance": {
+        "leave_year": "2026-27",
+        "casual": {"entitled": 8, "used": 2, "remaining": 6},
+        "sick": {"entitled": 10, "used": 4, "remaining": 6},
+        "earned": {"entitled": 18, "carried_forward": 0, "used": 3, "remaining": 15, "note": "remaining = entitled + carried_forward - used"}
+      },
+      "reimbursements": [
+        {"claim_id": "RMB-2050", "type": "internet", "amount_inr": 1000, "submitted_on": "2026-09-05", "status": "paid", "payout_date": "2026-09-30"}
+      ]
+    },
+    "E1003": {
+      "name": "Rohan Iyer",
+      "department": "Engineering",
+      "grade": "M2",
+      "manager_id": null,
+      "joined_on": "2019-11-18",
+      "home_city": "Bengaluru",
+      "sensitive": {
+        "annual_salary_inr": 4800000,
+        "bank_account_last4": "6611",
+        "personal_phone": "+91-99xxxx3307"
+      },
+      "leave_balance": {
+        "leave_year": "2026-27",
+        "casual": {"entitled": 8, "used": 8, "remaining": 0},
+        "sick": {"entitled": 10, "used": 0, "remaining": 10},
+        "earned": {"entitled": 18, "carried_forward": 12, "used": 10, "remaining": 20, "note": "remaining = entitled + carried_forward - used"}
+      },
+      "reimbursements": []
+    }
+  }
+}
