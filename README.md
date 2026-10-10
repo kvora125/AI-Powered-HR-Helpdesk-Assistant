@@ -79,7 +79,7 @@ python3 -m scripts.security_tests               # auth, authorization, catastrop
 | 2 | Architecture diagram | [docs/architecture.md](docs/architecture.md) |
 | 3 | System prompts, labelled by the six components | [docs/prompts.md](docs/prompts.md) (generated from `hr_helpdesk/prompts.py`) |
 | 4 | Policy docs + employee "database" | `data/policies/*.md`, `data/employees.json` |
-| 5 | Demo | [docs/demo_transcript.md](docs/demo_transcript.md) |
+| 5 | Demo | Silent screen recording [docs/demo/hr_helpdesk_demo.mp4](docs/demo/hr_helpdesk_demo.mp4) (GIF: [hr_helpdesk_demo.gif](docs/demo/hr_helpdesk_demo.gif)) + annotated transcript [docs/demo_transcript.md](docs/demo_transcript.md) |
 | 6 | Security test notes | [docs/security_tests.md](docs/security_tests.md) + raw output [docs/security_test_output.txt](docs/security_test_output.txt) |
 | 7 | Sample logs + cost calculation | [docs/sample_logs.md](docs/sample_logs.md), `docs/sample_logs/*.jsonl` |
 | 8 | Diagnosis write-up | [docs/diagnosis.md](docs/diagnosis.md), runs in `docs/eval_results/` |
@@ -123,9 +123,16 @@ All 24 cases with machine-checked expectations are in [`tests/eval_cases.json`](
 
 ## Recording the demo
 
-Run the server in one terminal and the commands above in another (e.g. with `asciinema rec` or a screen recorder). For the
-streaming comparison, `--compare` runs the same query non-streamed and then streamed, and prints a timing table.
-**Make sure `.env` and your API key are not visible on screen.**
+![demo](docs/demo/hr_helpdesk_demo.gif)
+
+The 2-minute silent recording is scripted with [VHS](https://github.com/charmbracelet/vhs) and runs real queries against the
+live backend. To re-record it (needs `brew install vhs` and a configured `.env`):
+
+```bash
+vhs docs/demo/demo.tape
+```
+
+The backend is started off-camera by `docs/demo/demo_env.sh`; `.env` and the API key never appear on screen.
 
 ## Limitations (V1)
 
