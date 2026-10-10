@@ -1,0 +1,66 @@
+==========================================================================================
+PART A — crafted failure modes through the production validator
+==========================================================================================
+
+• valid output
+  input : '{"category": "payroll", "urgency": "high", "requires_human_review": true, "needs_clarification": false, "clari'…
+  issues: valid
+  result: ACCEPTED
+
+• non-JSON preamble
+  input : 'Sure! Here\'s the classification you asked for:\n{"category": "payroll", "urgency": "high", "requires_human_revi'…
+  issues: non_json_preamble: text found outside the JSON object
+  result: ACCEPTED (salvaged, logged as repaired)
+
+• missing field (no urgency)
+  input : '{"category": "payroll", "requires_human_review": true, "needs_clarification": false, "clarification_question":'…
+  issues: missing_field: 'urgency' is required
+  result: REJECTED -> retry, then fallback
+
+• renamed field (urgency -> priority)
+  input : '{"category": "payroll", "priority": "high", "requires_human_review": true, "needs_clarification": false, "clar'…
+  issues: unknown_field: unexpected field 'priority' (renamed field?); missing_field: 'urgency' is required
+  result: REJECTED -> retry, then fallback
+
+• invented enum (category=salary_issue)
+  input : '{"category": "salary_issue", "urgency": "high", "requires_human_review": true, "needs_clarification": false, "'…
+  issues: invalid_enum: 'category'='salary_issue' not in ['leave', 'payroll', 'benefits', 'reimbursement', 'it_access', 'policy_query', 'workplace_concern', 'onboarding_offboarding', 'other']
+  result: REJECTED -> retry, then fallback
+
+• wrong type (requires_human_review='yes')
+  input : '{"category": "payroll", "urgency": "high", "requires_human_review": "yes", "needs_clarification": false, "clar'…
+  issues: wrong_type: 'requires_human_review' must be true/false, got 'yes'
+  result: REJECTED -> retry, then fallback
+
+• truncated output (max_tokens hit)
+  input : '{"category": "payroll", "urgency": "high", "requires_human_review": tr'
+  issues: truncated: model hit max_tokens (finish_reason=length)
+  result: REJECTED -> retry, then fallback
+
+• plain prose, no JSON
+  input : 'This looks like a payroll problem with high urgency.'
+  issues: invalid_json: no JSON object found
+  result: REJECTED -> retry, then fallback
+
+==========================================================================================
+PART B — real model failures, provoked on purpose
+==========================================================================================
+
+### B1 truncation: max_tokens=12
+  attempt 1: status=incomplete finish=length issues=['truncated']
+    raw: '{\n  "category": "payroll'
+  attempt 2: status=incomplete finish=length issues=['truncated']
+    raw: '{"category":"payroll","urgency":"'
+  => FALLBACK (human review): {"category": "other", "urgency": "medium", "requires_human_review": true, "needs_clarification": false, "clarification_question": null, "summary": "My September salary hasn't been credited and my rent is due on the 5th", "urgency_reason": "Automatic classification failed validation (truncated; truncated); defaulted for human triage."}
+
+### B2 no JSON mode + sloppy prompt (preamble / renamed fields / invented enums likely)
+  attempt 1: status=incomplete finish=length issues=['truncated', 'invalid_json']
+    raw: '**Reasoning:**\n\n1. **Category:** The request pertains directly to unpaid wages/compensation, placing it under **Payroll**.\n2. **Priority:** A missing salary pay'
+  attempt 2: status=success finish=stop issues=['unknown_field', 'unknown_field', 'invalid_enum', 'missing_field', 'missing_field', 'missing_field', 'missing_field', 'missing_field', 'missing_field']
+    raw: '{\n  "category": "Payroll",\n  "priority": "High",\n  "needs_human_review": true\n}'
+  => FALLBACK (human review): {"category": "other", "urgency": "medium", "requires_human_review": true, "needs_clarification": false, "clarification_question": null, "summary": "My September salary hasn't been credited and my rent is due on the 5th", "urgency_reason": "Automatic classification failed validation (truncated; invalid_json; unknown_field; unknown_field; invalid_enum; missing_field; missing_field; missing_field; missing_field; missing_field; missing_field); defaulted for human triage."}
+
+### B3 production settings (6-part prompt + JSON mode)
+  attempt 1: status=success finish=stop issues=none
+    raw: '{"category":"payroll","urgency":"high","requires_human_review":true,"needs_clarification":false,"clarification_question":null,"summary":"Employee reports that t'
+  => VALID: {"category": "payroll", "urgency": "high", "requires_human_review": true, "needs_clarification": false, "clarification_question": null, "summary": "Employee reports that their September salary has not been credited.", "urgency_reason": "Salary not received and employee states rent is due on the 5th."}

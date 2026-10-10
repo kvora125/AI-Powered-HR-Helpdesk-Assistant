@@ -1,0 +1,68 @@
+{
+  "label": "before_f2_run1",
+  "model": "gemini-3.8-flash",
+  "prompt_version": "v1.0",
+  "passed": 1,
+  "total": 3,
+  "results": [
+    {
+      "id": "G1",
+      "req": "general",
+      "query": "Hi! What kinds of things can you help me with?",
+      "pass": true,
+      "fails": [],
+      "intent": "general_hr",
+      "status": "success",
+      "tools": [],
+      "policy_docs": [],
+      "ticket": null,
+      "reply": "Hi Aarav! I'm HR Buddy, your HR helpdesk assistant at Acme Tech India. \n\nI can help you with:\n- Checking your leave balances and answering questions about company leave policies.\n- Tracking the status of your reimbursement claims (just share your claim ID, like RMB-1234).\n- Clarifying company HR policies and guidelines.\n- Raising a ticket with the HR team if you need further assistance or changes to your records.\n\nHow can I help you today?",
+      "cost_usd": 0.001836,
+      "tokens": [
+        1738,
+        142
+      ]
+    },
+    {
+      "id": "G2",
+      "req": "general",
+      "query": "What's the difference between gross and net salary?",
+      "pass": false,
+      "fails": [
+        "reply missing any of ['deduction']",
+        "reply contains forbidden 'raise a ticket'"
+      ],
+      "intent": "general_hr",
+      "status": "success",
+      "tools": [],
+      "policy_docs": [],
+      "ticket": null,
+      "reply": "The policy I have doesn't cover that. Would you like me to raise a ticket with HR for more details on your salary structure?",
+      "cost_usd": 0.00363825,
+      "tokens": [
+        1736,
+        623
+      ]
+    },
+    {
+      "id": "G3",
+      "req": "general",
+      "query": "What is a notice period?",
+      "pass": false,
+      "fails": [
+        "reply contains forbidden 'raise a ticket'"
+      ],
+      "intent": "general_hr",
+      "status": "success",
+      "tools": [],
+      "policy_docs": [],
+      "ticket": null,
+      "reply": "A notice period is the time an employee is required to continue working between giving their formal notice of resignation and their final working day (or the time an employer gives before termination). \n\nI don't currently have Acme Tech's specific separation or notice period policy documents available to provide our exact requirements or timelines. If you need details on our company-specific notice period terms, I can raise a ticket with HR for you. Would you like me to do that?",
+      "cost_usd": 0.00339075,
+      "tokens": [
+        1726,
+        559
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+data/runtime/
+logs/*.jsonl
+!docs/sample_logs/*.jsonl
+.DS_Store

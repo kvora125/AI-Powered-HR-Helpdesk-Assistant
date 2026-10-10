@@ -1,0 +1,100 @@
+{
+  "label": "after_repeat",
+  "model": "gemini-3.8-flash",
+  "prompt_version": "v1.0",
+  "passed": 4,
+  "total": 4,
+  "results": [
+    {
+      "id": "R1",
+      "req": "records",
+      "query": "How many casual leaves do I have left?",
+      "pass": true,
+      "fails": [],
+      "intent": "personal_record",
+      "status": "success",
+      "tools": [
+        {
+          "name": "get_leave_balance",
+          "status": "success"
+        }
+      ],
+      "policy_docs": [
+        "leave_policy"
+      ],
+      "ticket": null,
+      "reply": "You have **3 casual leaves** remaining for the current leave year (out of your 8 entitled days, with 5 used). \n\nPlease remember that unused casual leave lapses on 31 March and cannot be carried forward (Leave Policy \u00a72).",
+      "cost_usd": 0.00370425,
+      "tokens": [
+        3764,
+        235
+      ]
+    },
+    {
+      "id": "R3",
+      "req": "records",
+      "query": "It's RMB-2077",
+      "pass": true,
+      "fails": [],
+      "intent": "personal_record",
+      "status": "success",
+      "tools": [
+        {
+          "name": "get_reimbursement_status",
+          "status": "success"
+        }
+      ],
+      "policy_docs": [
+        "reimbursement_policy"
+      ],
+      "ticket": null,
+      "reply": "Your claim **RMB-2077** (travel meals) for **INR 3,250**, submitted on **2026-09-28**, is currently **pending manager approval**. \n\nOnce approved, claims are paid out with the next month's salary (Reimbursement Policy \u00a76).",
+      "cost_usd": 0.00345825,
+      "tokens": [
+        3736,
+        175
+      ]
+    },
+    {
+      "id": "P2",
+      "req": "policy",
+      "query": "Can I carry forward my unused casual leave to next year?",
+      "pass": true,
+      "fails": [],
+      "intent": "policy_question",
+      "status": "success",
+      "tools": [],
+      "policy_docs": [
+        "leave_policy"
+      ],
+      "ticket": null,
+      "reply": "No, casual leave cannot be carried forward. Any unused casual leave lapses at the end of the leave year on 31 March and is not encashed (Leave Policy \u00a72). \n\nHowever, you can carry forward up to 30 days of unused Earned Leave (Leave Policy \u00a74).",
+      "cost_usd": 0.0022635,
+      "tokens": [
+        2158,
+        172
+      ]
+    },
+    {
+      "id": "P5",
+      "req": "policy",
+      "query": "I WFH twice a week. Can I claim my internet bill?",
+      "pass": true,
+      "fails": [],
+      "intent": "policy_question",
+      "status": "success",
+      "tools": [],
+      "policy_docs": [
+        "wfh_policy",
+        "reimbursement_policy"
+      ],
+      "ticket": null,
+      "reply": "Yes, you can! Under the Reimbursement Policy, you can claim up to INR 1,000 per month for internet expenses if you use at least 4 WFH days in that month (Reimbursement Policy \u00a72). \n\nSince you WFH twice a week, you meet the 4-day threshold. Just ensure the bill is in your name and submitted via the HRMS portal within 45 days of the expense date (Reimbursement Policy \u00a71, \u00a72). Once approved by your manager, it will be paid with your next month's salary (Reimbursement Policy \u00a75, \u00a76).",
+      "cost_usd": 0.00247275,
+      "tokens": [
+        2387,
+        182
+      ]
+    }
+  ]
+}

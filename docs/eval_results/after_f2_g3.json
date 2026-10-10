@@ -1,0 +1,27 @@
+{
+  "label": "after_f2_g3",
+  "model": "gemini-3.8-flash",
+  "prompt_version": "v1.1",
+  "passed": 1,
+  "total": 1,
+  "results": [
+    {
+      "id": "G3",
+      "req": "general",
+      "query": "What is a notice period?",
+      "pass": true,
+      "fails": [],
+      "intent": "general_hr",
+      "status": "success",
+      "tools": [],
+      "policy_docs": [],
+      "ticket": null,
+      "reply": "A notice period is the amount of time an employee must continue working after giving formal notice of their resignation, or the time an employer must provide before terminating an employee's contract. \n\nIt allows the company time to find a replacement and ensures a smooth handover of responsibilities and projects before the employee's final working day. \n\nIf you need specific details about Acme Tech India's notice period duration or exit process, let me know!",
+      "cost_usd": 0.0018945,
+      "tokens": [
+        1851,
+        135
+      ]
+    }
+  ]
+}

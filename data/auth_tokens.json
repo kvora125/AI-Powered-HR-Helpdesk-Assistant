@@ -1,0 +1,8 @@
+{
+  "_comment": "SHA-256 hashes of client tokens -> employee_id. Plaintext tokens are never stored server-side. Regenerate with: python -m scripts.gen_token E1001",
+  "tokens": {
+    "18589256d673fceea51b0a7ef8086bf714f13576777c0c0af058518923cac7f8": "E1001",
+    "aff1261b749fb54adacccd75e9f4ae7e3b48a3013e53fa991abdee1df672825b": "E1002",
+    "9bad6d0ed5e7a8ce0add638676c58e945c2c1b195a727de77a78680573b3fd53": "E1003"
+  }
+}
